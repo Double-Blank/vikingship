@@ -7,14 +7,14 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Menu defaultIndex={0} >
-          <MenuItem>
+        <Menu defaultIndex={0} onSelect={(index) => {alert(index)}} mode="vertical">
+          <MenuItem index={0}>
             cool link
           </MenuItem>
-          <MenuItem>
+          <MenuItem index={1} disabled>
             cool link 2
           </MenuItem>        
-          <MenuItem>
+          <MenuItem index={2}>
             cool link 3
           </MenuItem>
         </Menu>
