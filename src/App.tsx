@@ -4,14 +4,12 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'  
 import SubMenu from './components/Menu/subMenu'
-import Icon from './components/Icon/icon'
 library.add(fas)
 const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Icon icon="arrow-down" theme="primary" size="10x" />
-        <Menu defaultIndex='0' onSelect={(index) => {alert(index)}} mode="vertical" defaultOpenSubMenus={['2']}>
+        <Menu defaultIndex='0' onSelect={(index) => {alert(index)}} mode="vertical">
           <MenuItem>
             cool link
           </MenuItem>
