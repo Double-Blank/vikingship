@@ -26,16 +26,9 @@ storiesOf('Button Component', module)
   .addDecorator(withInfo)
   .addParameters({
     info: {
-      text: `
-      this is a very nice component
-      ## this is a header
-      ~~~js
-      const a = 'hello'
-      ~~~
-      `,
       inline: true
     }
   })
-  .add('默认 Button', defaultButton)
+  .add('Button', defaultButton)
   .add('不同尺寸的 Button', buttonWithSize, {info: { inline: false}})
   .add('不同类型的 Button', buttonWithType)
