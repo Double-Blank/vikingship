@@ -1,7 +1,6 @@
 import React, { FC, useRef, ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import UploadList from './uploadList'
-import Button from '../Button/button'
 import Dragger from './dragger'
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 export interface UploadFile {
@@ -140,7 +139,6 @@ export const Upload: FC<UploadProps> = (props) => {
         }
       }
     }).then(resp => {
-      console.log(resp)
       updateFileList(_file, {status: 'success', response: resp.data})
       if (onSuccess) {
         onSuccess(resp.data, file)
@@ -149,7 +147,6 @@ export const Upload: FC<UploadProps> = (props) => {
         onChange(file)
       }
     }).catch(err => {
-      console.error(err)
       updateFileList(_file, { status: 'error', error: err})
       if (onError) {
         onError(err, file)
