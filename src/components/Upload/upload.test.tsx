@@ -6,8 +6,8 @@ import { render, RenderResult, fireEvent, wait, createEvent } from '@testing-lib
 import { Upload, UploadProps } from './upload'
 
 jest.mock('../Icon/icon', () => {
-  return ({icon, onClick}) => {
-    return <span onClick={onClick}>{icon}</span>
+  return (props: any) => {
+    return <span onClick={props.onClick}>{props.icon}</span>
   }
 })
 jest.mock('axios')
@@ -25,11 +25,11 @@ const testFile = new File(['xyz'], 'test.png', {type: 'image/png'})
 describe('test upload component', () => {
   beforeEach(() => {
     wrapper = render(<Upload {...testProps}>Click to upload</Upload>)
-    fileInput = wrapper.container.querySelector('.viking-file-input')
-    uploadArea = wrapper.queryByText('Click to upload')
+    fileInput = wrapper.container.querySelector('.viking-file-input') as HTMLInputElement
+    uploadArea = wrapper.queryByText('Click to upload') as HTMLElement
   })
   it('upload process should works fine', async () => {
-    const { queryByText } = wrapper
+    const { queryByText, getByText } = wrapper
     // mockedAxios.post.mockImplementation(() => {
     //   return Promise.resolve({'data': 'cool'})
     // })
@@ -47,7 +47,7 @@ describe('test upload component', () => {
 
     //remove the uploaded file
     expect(queryByText('times')).toBeInTheDocument()
-    fireEvent.click(queryByText('times'))
+    fireEvent.click(getByText('times'))
     expect(queryByText('test.png')).not.toBeInTheDocument()
     expect(testProps.onRemove).toHaveBeenCalledWith(expect.objectContaining({
       raw: testFile,
