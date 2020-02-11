@@ -1,4 +1,4 @@
-import React,{ useContext, useState, FunctionComponentElement } from 'react'
+import React,{ FC, useContext, useState, FunctionComponentElement } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
@@ -6,11 +6,13 @@ import Icon from '../Icon/icon'
 import Transition from '../Transition/transition'
 export interface SubMenuProps {
   index?: string;
+  /**下拉菜单选项的文字 */
   title: string;
+  /**下拉菜单选型的扩展类名 */
   className?: string;
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className}) => {
+export const SubMenu: FC<SubMenuProps> = ({ index, title, children, className}) => {
   const context = useContext(MenuContext)
   const openedSubMenus = context.defaultOpenSubMenus as Array<string>
   const isOpend = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
@@ -77,4 +79,4 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className}) =
 }
 
 SubMenu.displayName = 'SubMenu'
-export default SubMenu
+export default SubMenu;

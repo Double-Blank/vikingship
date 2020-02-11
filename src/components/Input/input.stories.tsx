@@ -1,24 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Input } from './input'
-const ControlledInput = () => {
-  const [value, setValue] = useState()
-  return <Input value={value} defaultValue={value} onChange={(e) => {setValue(e.target.value)}}/>
-}
 const defaultInput = () => (
-  <>
   <Input
-    style={{width: '300px'}}
-    placeholder="placeholder"
+    placeholder="漂亮的 Input"
     onChange={action('changed')}
   />
-  <ControlledInput />
-  </>
 )
 const disabledInput = () => (
   <Input
-    style={{width: '300px'}}
     placeholder="disabled input"
     disabled 
   />
@@ -26,7 +17,6 @@ const disabledInput = () => (
 
 const iconInput = () => (
   <Input
-    style={{width: '300px'}}
     placeholder="input with icon"
     icon="search"
   />  
@@ -35,12 +25,10 @@ const iconInput = () => (
 const sizeInput = () => (
   <>
     <Input
-      style={{width: '300px'}}
       defaultValue="large size"
       size="lg"
     />
     <Input
-      style={{width: '300px'}}
       placeholder="small size"
       size="sm"
     />
@@ -50,12 +38,10 @@ const sizeInput = () => (
 const pandInput = () => (
   <>
     <Input
-      style={{width: '300px'}}
       defaultValue="prepend text"
       prepend="https://"
     />
     <Input
-      style={{width: '300px'}}
       defaultValue="google"
       append=".com"
     />
@@ -64,7 +50,7 @@ const pandInput = () => (
 )
 
 
-storiesOf('Input component', module)
+storiesOf('第九章：Input', module)
   .add('Input', defaultInput)
   .add('被禁用的 Input', disabledInput)
   .add('带图标的 Input', iconInput)

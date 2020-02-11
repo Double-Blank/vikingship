@@ -42,8 +42,18 @@ describe('test upload component', () => {
       expect(queryByText('test.png')).toBeInTheDocument()
     })
     expect(queryByText('check-circle')).toBeInTheDocument()
-    expect(testProps.onSuccess).toHaveBeenCalledWith('cool', testFile)
-    expect(testProps.onChange).toHaveBeenCalledWith(testFile)
+    expect(testProps.onSuccess).toHaveBeenCalledWith('cool', expect.objectContaining({
+      raw: testFile,
+      status: 'success',
+      response: 'cool',
+      name: 'test.png'
+    }))
+    expect(testProps.onChange).toHaveBeenCalledWith(expect.objectContaining({
+      raw: testFile,
+      status: 'success',
+      response: 'cool',
+      name: 'test.png'
+    }))
 
     //remove the uploaded file
     expect(queryByText('times')).toBeInTheDocument()
@@ -71,6 +81,11 @@ describe('test upload component', () => {
     await wait(() => {
       expect(wrapper.queryByText('test.png')).toBeInTheDocument()
     })
-    expect(testProps.onSuccess).toHaveBeenCalledWith('cool', testFile)
+    expect(testProps.onSuccess).toHaveBeenCalledWith('cool', expect.objectContaining({
+      raw: testFile,
+      status: 'success',
+      response: 'cool',
+      name: 'test.png'
+    }))
   })
 })

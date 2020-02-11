@@ -25,6 +25,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
  * // 这样引用
  * import { Input } from 'vikingship'
  * ~~~
+ * 
  * 支持 HTMLInput 的所有基本属性
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {

@@ -2,8 +2,6 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-// import Select from './select'
-// import Option from './option'
 import Select from './index'
 const defaultSelect = () => (
   <Select
@@ -44,7 +42,7 @@ const disabledSelect = () => (
   </Select>  
 )
 
-storiesOf('Select Component', module)
+storiesOf('第九章作业：Select', module)
   .add('Select', defaultSelect)
   .add('支持多选的 Select', multipleSelect)
   .add('被禁用的 Select', disabledSelect)
