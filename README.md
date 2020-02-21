@@ -3,8 +3,12 @@
 
 [![Build Status](https://travis-ci.com/vikingmute/vikingship.svg?token=mHoDqxyxXWX5BSpu8L9y&branch=master)](https://travis-ci.com/vikingmute/vikingship)
 
+vikingship 是为慕课网打造的一套教学组件库，使用 React Hooks 和 typescript
+意在让大家从零到一，由浅入深的提高自己的 React 和 typescript 水平，它的官网地址是
+[vikingship.xyz](http://vikingship.xyz)
 
-### 安装试试
+
+### 安装最后已经发布的组件库来试试
 
 ~~~javascript
 npm install vikingship --save
@@ -30,3 +34,18 @@ import { Button } from 'vikingship'
 * 🌹样式（Sass）文件从零开始，掌握大型应用的 CSS 组织方法
 * 🎉涉及全部流程，包括最后的 npm publish，husky提交发布前验证，travis CI/CD 集成，发布文档站点等
 
+### 一些本地开发命令
+
+~~~bash
+//启动本地环境
+npm run stroybook
+
+//跑单元测试
+npm test
+
+//build可发布静态文件
+npm run build
+
+//发布到 npm
+npm run publish
+~~~
