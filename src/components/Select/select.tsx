@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, useRef, FunctionComponentElement, useEffect} from 'react'
+import React, { FC, useState, createContext, useRef, FunctionComponentElement, useEffect, ReactNode } from 'react'
 import classNames from 'classnames'
 import Input from '../Input'
 import Icon from '../Icon'
@@ -21,6 +21,7 @@ export interface SelectProps {
   onChange?: (selectedValue: string, selectedValues: string[]) => void;
   /**下拉框出现/隐藏时触发 */
   onVisibleChange?: (visible: boolean) => void;
+  children?: ReactNode;
 }
 
 export interface ISelectContext {

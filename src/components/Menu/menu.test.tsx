@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, RenderResult, fireEvent, wait } from '@testing-library/react'
+import { render, RenderResult, fireEvent, waitFor } from '@testing-library/react'
 import Menu, {MenuProps} from './menu'
 import MenuItem from './menuItem'
 import SubMenu from './subMenu'
@@ -94,13 +94,13 @@ describe('test Menu and MenuItem component in default(horizontal) mode', () => {
     expect(wrapper.queryByText('drop1')).not.toBeVisible()
     const dropdownElement = wrapper.getByText('dropdown')
     fireEvent.mouseEnter(dropdownElement)
-    await wait(() => {
+    await waitFor(() => {
       expect(wrapper.queryByText('drop1')).toBeVisible()
     })
     fireEvent.click(wrapper.getByText('drop1'))
     expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
     fireEvent.mouseLeave(dropdownElement)
-    await wait(() => {
+    await waitFor(() => {
       expect(wrapper.queryByText('drop1')).not.toBeVisible()
     })
   })

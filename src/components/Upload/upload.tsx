@@ -44,6 +44,7 @@ export interface UploadProps {
   multiple?: boolean;
   /**是否支持拖拽上传 */
   drag?: boolean;
+  children?: React.ReactNode
 }
 
 /**
@@ -109,8 +110,11 @@ export const Upload: FC<UploadProps> = (props) => {
       onRemove(file)
     }
   }
-  const uploadFiles = (files: FileList) => {
+  const uploadFiles = (files: FileList, test?: boolean) => {
     let postFiles = Array.from(files)
+    if (test) {
+      console.log('drag', postFiles[0])
+    }
     postFiles.forEach(file => {
       if (!beforeUpload) {
         post(file)
@@ -193,7 +197,7 @@ export const Upload: FC<UploadProps> = (props) => {
         style={{display: 'inline-block'}}
         onClick={handleClick}>
           {drag ? 
-            <Dragger onFile={(files) => {uploadFiles(files)}}>
+            <Dragger onFile={(files) => {uploadFiles(files, true)}}>
               {children}
             </Dragger>:
             children

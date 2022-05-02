@@ -1,4 +1,4 @@
-import React,{ FC, useContext, useState, FunctionComponentElement } from 'react'
+import React,{ FC, useContext, useState, FunctionComponentElement, ReactNode } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 import { MenuItemProps } from './menuItem'
@@ -10,6 +10,7 @@ export interface SubMenuProps {
   title: string;
   /**下拉菜单选型的扩展类名 */
   className?: string;
+  children?: ReactNode;
 }
 
 export const SubMenu: FC<SubMenuProps> = ({ index, title, children, className}) => {

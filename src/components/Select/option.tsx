@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, ReactNode } from 'react'
 import classNames from 'classnames'
 import Icon from '../Icon'
 import { SelectContext } from './select'
@@ -10,6 +10,7 @@ export interface SelectOptionProps {
   label?: string;
   /** 是否禁用该选项*/
   disabled?: boolean;
+  children?: ReactNode;
 }
 
 export const Option: FC<SelectOptionProps> = ({value, label, disabled, children, index}) => {

@@ -1,4 +1,4 @@
-import React, { FC, useState, FunctionComponentElement } from 'react'
+import React, { FC, useState, FunctionComponentElement, ReactNode } from 'react'
 import classNames from 'classnames'
 import { TabItemProps } from './tabItem'
 export interface TabsProps {
@@ -10,6 +10,7 @@ export interface TabsProps {
   onSelect?: (selectedIndex: number) => void;
   /**Tabs的样式，两种可选，默认为 line */
   type?: 'line' | 'card';
+  children?: ReactNode;
 }
 
 /**

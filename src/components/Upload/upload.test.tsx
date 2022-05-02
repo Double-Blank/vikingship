@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect'
 import React from 'react'
 import axios from 'axios'
-import { render, RenderResult, fireEvent, wait, createEvent } from '@testing-library/react'
+import { render, RenderResult, fireEvent, waitFor, createEvent } from '@testing-library/react'
 
 import { Upload, UploadProps } from './upload'
 
@@ -38,10 +38,10 @@ describe('test upload component', () => {
     expect(fileInput).not.toBeVisible()
     fireEvent.change(fileInput, { target: { files: [testFile ]}})
     expect(queryByText('spinner')).toBeInTheDocument()
-    await wait(() => {
+    await waitFor(() => {
       expect(queryByText('test.png')).toBeInTheDocument()
+      expect(queryByText('check-circle')).toBeInTheDocument()
     })
-    expect(queryByText('check-circle')).toBeInTheDocument()
     expect(testProps.onSuccess).toHaveBeenCalledWith('cool', expect.objectContaining({
       raw: testFile,
       status: 'success',
@@ -66,20 +66,26 @@ describe('test upload component', () => {
     }))
   })
   it('drag and drop files should works fine', async () => {
+    mockedAxios.post.mockResolvedValue({'data': 'cool'})
     fireEvent.dragOver(uploadArea)
     expect(uploadArea).toHaveClass('is-dragover')
     fireEvent.dragLeave(uploadArea)
     expect(uploadArea).not.toHaveClass('is-dragover')
-    const mockDropEvent = createEvent.drop(uploadArea)
-    Object.defineProperty(mockDropEvent, "dataTransfer", {
-      value: {
+    // const mockDropEvent = createEvent.drop(uploadArea)
+    // Object.defineProperty(mockDropEvent, "dataTransfer", {
+    //   value: {
+    //     files: [testFile]
+    //   }
+    // })
+    // fireEvent(uploadArea, mockDropEvent)
+    fireEvent.drop(uploadArea, {
+      dataTransfer: {
         files: [testFile]
       }
     })
-    fireEvent(uploadArea, mockDropEvent)
-
-    await wait(() => {
+    await waitFor(() => {
       expect(wrapper.queryByText('test.png')).toBeInTheDocument()
+      // expect(wrapper.queryByText('check-circle')).toBeInTheDocument()
     })
     expect(testProps.onSuccess).toHaveBeenCalledWith('cool', expect.objectContaining({
       raw: testFile,

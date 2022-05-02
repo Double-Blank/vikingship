@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, ReactNode } from 'react'
 import classNames from 'classnames'
 import { MenuContext } from './menu'
 export interface MenuItemProps {
@@ -9,6 +9,7 @@ export interface MenuItemProps {
   className?: string;
   /**选项的自定义 style */
   style?: React.CSSProperties;
+  children?: ReactNode;
 }
 
 export const MenuItem: FC<MenuItemProps> = (props) => {

@@ -12,7 +12,7 @@ export const UploadList: FC<UploadListProps> = (props) => {
     fileList,
     onRemove,
   } = props
-
+  console.log('firelist', fileList)
   return (
     <ul className="viking-upload-list">
       {fileList.map(item => {

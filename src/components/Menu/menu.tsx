@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, CSSProperties } from 'react'
+import React, { FC, useState, createContext, CSSProperties, ReactNode } from 'react'
 import classNames from 'classnames'
 import { MenuItemProps } from './menuItem'
 
@@ -14,6 +14,7 @@ export interface MenuProps {
   onSelect?: (selectedIndex: string) => void;
   /**设置子菜单的默认打开 只在纵向模式下生效 */
   defaultOpenSubMenus?: string[];
+  children?: ReactNode;
 }
 interface IMenuContext {
   index: string;
