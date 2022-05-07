@@ -1,28 +1,40 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Input } from './input'
-const defaultInput = () => (
-  <Input
-    placeholder="漂亮的 Input"
-    onChange={action('changed')}
-  />
-)
-const disabledInput = () => (
-  <Input
-    placeholder="disabled input"
-    disabled 
-  />
-)
+export default {
+  title: '第九章：Input',
+  id: 'Input',
+  component: Input,
+  decorators: [
+    (Story) => (
+      <div style={{ width: '350px' }}>
+        <Story />
+      </div>
+    ),
+  ],
+} as ComponentMeta<typeof Input>
 
-const iconInput = () => (
-  <Input
-    placeholder="input with icon"
-    icon="search"
-  />  
-)
+const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />
+export const ADefault = Template.bind({})
+ADefault.args = {
+  placeholder: '漂亮的 Input'
+}
+ADefault.storyName = '默认的 Input'
+export const BDisabled = Template.bind({})
+BDisabled.args = {
+  placeholder: 'disabled input',
+  disabled: true
+}
+BDisabled.storyName = '被禁用的 Input'
 
-const sizeInput = () => (
+export const CIcon = Template.bind({})
+CIcon.args = {
+  placeholder: 'input with icon',
+  icon: 'search'
+}
+CIcon.storyName = '带图标的 Input'
+
+export const DSizeInput = () => (
   <>
     <Input
       defaultValue="large size"
@@ -34,8 +46,8 @@ const sizeInput = () => (
     />
   </>
 )
-
-const pandInput = () => (
+DSizeInput.storyName = '大小不同的 Input'
+export const EPandInput = () => (
   <>
     <Input
       defaultValue="prepend text"
@@ -49,10 +61,5 @@ const pandInput = () => (
   </>
 )
 
+EPandInput.storyName = '带前后缀的 Input'
 
-storiesOf('第九章：Input', module)
-  .add('Input', defaultInput)
-  .add('被禁用的 Input', disabledInput)
-  .add('带图标的 Input', iconInput)
-  .add('大小不同的 Input', sizeInput)
-  .add('带前后缀的 Input', pandInput)

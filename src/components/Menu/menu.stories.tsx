@@ -1,10 +1,16 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 import Menu from './index'
 
-export const defaultMenu = () => (
-  <Menu defaultIndex='0' onSelect={action('selected!')} >
+export default {
+  title: '第六章：Menu',
+  id: 'Menu',
+  component: Menu,
+  subcomponents: { 'SubMenu': Menu.SubMenu, 'Item': Menu.Item }
+} as ComponentMeta<typeof Menu>
+
+export const ADefaultMenu: ComponentStory<typeof Menu> = (args) => (
+  <Menu defaultIndex='0' {...args} >
     <Menu.Item>
       cool link
     </Menu.Item>
@@ -24,8 +30,9 @@ export const defaultMenu = () => (
     </Menu.SubMenu>
   </Menu>
 )
-export const clickMenu = () => (
-  <Menu defaultIndex='0' onSelect={action('selected!')} mode="vertical">
+ADefaultMenu.storyName = '默认Menu'
+export const BClickMenu: ComponentStory<typeof Menu> = (args) => (
+  <Menu {...args} defaultIndex='0' mode="vertical">
     <Menu.Item>
       cool link
     </Menu.Item>
@@ -42,8 +49,9 @@ export const clickMenu = () => (
     </Menu.SubMenu>
   </Menu>
 )
-export const openedMenu = () => (
-  <Menu defaultIndex='0' onSelect={action('selected!')} mode="vertical" defaultOpenSubMenus={['2']}>
+BClickMenu.storyName = '纵向的 Menu'
+export const COpenedMenu:ComponentStory<typeof Menu> = (args) => (
+  <Menu {...args} defaultIndex='0' mode="vertical" defaultOpenSubMenus={['2']}>
     <Menu.Item>
       cool link
     </Menu.Item>
@@ -60,8 +68,4 @@ export const openedMenu = () => (
     </Menu.SubMenu>
   </Menu>
 )
-
-storiesOf('第六章：Menu', module)
-.add('Menu', defaultMenu )
-.add('纵向的 Menu', clickMenu)
-.add('默认展开的纵向 Menu', openedMenu)
+COpenedMenu.storyName = '默认展开的纵向 Menu'

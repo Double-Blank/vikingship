@@ -1,13 +1,26 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 
 import Select from './index'
-const defaultSelect = () => (
+export default {
+  title: '第九章作业：Select',
+  component: Select,
+  id: 'Select',
+  subcomponents: { 'Option': Select.Option },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '350px' }}>
+        <Story />
+      </div>
+    ),
+  ],
+} as ComponentMeta<typeof Select>
+
+export const ADefaultSelect = (args) => (
   <Select
+    {...args}
     placeholder="请选择"
-    onChange={action('changed')}
-    onVisibleChange={action('visible')}
   >
     <Select.Option value="nihao" />
     <Select.Option value="nihao2" />
@@ -16,11 +29,11 @@ const defaultSelect = () => (
     <Select.Option value="nihao5" />
   </Select>
 )
-const multipleSelect = () => (
+ADefaultSelect.storyName = '默认的Select'
+export const BMultipleSelect = (args) => (
   <Select
+    {...args}
     placeholder="支持多选欧！"
-    onChange={action('changed')}
-    onVisibleChange={action('visible')}
     multiple
   >
     <Select.Option value="nihao" />
@@ -30,9 +43,10 @@ const multipleSelect = () => (
     <Select.Option value="viking2" />
   </Select>
 )
-
-const disabledSelect = () => (
+BMultipleSelect.storyName = '支持多选的 Select'
+export const CDisabledSelect = (args) => (
   <Select
+    {...args}
     placeholder="禁用啦！"
     disabled
   >
@@ -41,8 +55,4 @@ const disabledSelect = () => (
     <Select.Option value="nihao3" />
   </Select>  
 )
-
-storiesOf('第九章作业：Select', module)
-  .add('Select', defaultSelect)
-  .add('支持多选的 Select', multipleSelect)
-  .add('被禁用的 Select', disabledSelect)
+CDisabledSelect.storyName = '被禁用的 Select'

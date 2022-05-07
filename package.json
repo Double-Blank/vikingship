@@ -46,9 +46,10 @@
     "eject": "react-scripts eject",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public",
-    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build"
+    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build",
+    "@types/react": "^18.0.8",
+    "storybook": "BROWSER=none start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "husky": {
     "hooks": {
@@ -71,11 +72,18 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.2.8",
-    "@storybook/addon-info": "^5.2.8",
-    "@storybook/addon-links": "^5.2.8",
-    "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8",
+    "@babel/core": "^7.17.10",
+    "@mdx-js/react": "^1.6.22",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-interactions": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
+    "@storybook/preset-create-react-app": "^4.1.0",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.4.22",
+    "@storybook/testing-library": "^0.0.11",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
@@ -85,16 +93,19 @@
     "@types/react": "^18.0.8",
     "@types/react-dom": "18.0.3",
     "@types/react-transition-group": "^4.2.3",
-    "@types/storybook__addon-info": "^5.2.1",
-    "babel-preset-react-app": "^7.0.0",
+    "babel-loader": "^8.2.5",
     "cross-env": "^7.0.0",
     "husky": "^4.2.1",
     "node-sass": "^6.0.1",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^7.6.0",
     "react": "^18.1.0",
-    "react-docgen-typescript-loader": "^3.6.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "rimraf": "^3.0.1",
-    "typescript": "^4.6.4"
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "typescript": "^4.6.4",
+    "webpack": "^5.72.0"
   }
 }

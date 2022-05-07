@@ -1,14 +1,29 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+
 
 import Alert from './alert'
 
-const defaultAlert = () => {
-  return <Alert title="this is alert!"></Alert>
-}
+export default { 
+  title: '第四章作业：Alert 组件',
+  id: 'Alert',
+  component: Alert,
+} as ComponentMeta<typeof Alert>
 
-const stylesAlert = () => {
+const Template: ComponentStory<typeof Alert> = (args) => <Alert {...args} />
+
+export const ADefaultAlert = Template.bind({})
+ADefaultAlert.args = {
+  title: 'this is alert!'
+}
+ADefaultAlert.storyName = '基本样式'
+export const CDescAlert = Template.bind({})
+CDescAlert.args = {
+  title: '提示标题欧亲',
+  description: 'this is a long description'
+}
+CDescAlert.storyName = '带描述的 Alert'
+export const BStylesAlert = () => {
   return (
     <>
       <Alert title="this is Success" type="success"></Alert>
@@ -17,10 +32,4 @@ const stylesAlert = () => {
     </>
   )
 }
-const descAlert = () => {
-  return <Alert title="提示标题欧亲" description="this is a long description" onClose={action('closed')}></Alert>
-}
-storiesOf('第四章作业：Alert', module)
-  .add('Alert', defaultAlert)
-  .add('不同样式的 Alert', stylesAlert)
-  .add('添加描述的 Alert', descAlert)
+BStylesAlert.storyName = '不同样式的 Alert'
