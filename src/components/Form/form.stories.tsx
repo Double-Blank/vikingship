@@ -30,7 +30,7 @@ export const BasicForm = () => {
         <Input type='password'/>
       </Item>
       <div className='agreement-section' style={{ 'display': 'flex', 'justifyContent': 'center'}}>
-        <Item name='agreement'>
+        <Item name='agreement' valuePropName='checked' getValueFromEvent={(e) => e.target.checked}>
           <input type="checkbox"/>
         </Item>
         <span className="agree-text">注册即代表你同意<a href='#'>用户协议</a></span>

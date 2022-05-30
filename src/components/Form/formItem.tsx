@@ -6,13 +6,19 @@ export interface FormItemProps {
   name: string;
   label?: string;
   children?: ReactNode;
+  valuePropName?: string;
+  trigger?: string;
+  getValueFromEvent?: (event: any) => any;
 }
 
 const FormItem: FC<FormItemProps> = (props) => {
   const {     
     label,
     children,
-    name
+    name,
+    valuePropName,
+    trigger,
+    getValueFromEvent
   } = props
   const { dispatch, fields } = useContext(FormContext)
   const rowClass = classNames('viking-row', {
@@ -25,18 +31,28 @@ const FormItem: FC<FormItemProps> = (props) => {
   const fieldState = fields[name]
   const value = fieldState && fieldState.value
   const onValueUpdate = (e:any) => {
-    const value = e.target.value
+    const value = getValueFromEvent && getValueFromEvent(e)
     console.log('new value', value)
     dispatch({ type: 'updateValue', name, value })
   }
   // 1 手动的创建一个属性列表，需要有 value 以及 onChange 属性
   const controlProps: Record<string, any> = {}
-  controlProps.value = value
-  controlProps.onChange = onValueUpdate
-  // todo 适应不同的事件以及 value 属性名称
+  controlProps[valuePropName!] = value
+  controlProps[trigger!] = onValueUpdate
   // 2 获取 children 数组的第一个元素
   const childList = React.Children.toArray(children)
-  // todo：判断 children 的类型，显示警告
+  // 没有子组件
+  if (childList.length === 0) {
+    console.error('No child element found in Form.Item, please provide one form component')
+  }
+  // 子组件大于一个
+  if (childList.length > 1) {
+    console.warn('Only support one child element in Form.Item, others will be omitted')
+  }
+  // 不是 ReactElement 的子组件
+  if (!React.isValidElement(childList[0])) {
+    console.error('Child component is not a valid React Element')
+  }
   const child = childList[0] as React.ReactElement
   // 3 cloneElement，混合这个child 以及 手动的属性列表
   const returnChildNode = React.cloneElement(
@@ -59,4 +75,9 @@ const FormItem: FC<FormItemProps> = (props) => {
   )
 }
 
+FormItem.defaultProps = {
+  valuePropName: 'value',
+  trigger: 'onChange',
+  getValueFromEvent: (e) => e.target.value
+}
 export default FormItem
