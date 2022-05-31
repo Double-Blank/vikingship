@@ -1,5 +1,6 @@
 import React, { FC, ReactNode, useContext, useEffect } from 'react'
 import classNames from 'classnames'
+import { RuleItem } from 'async-validator';
 import { FormContext } from './form'
 export type SomeRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
 export interface FormItemProps {
@@ -9,6 +10,8 @@ export interface FormItemProps {
   valuePropName?: string;
   trigger?: string;
   getValueFromEvent?: (event: any) => any;
+  rules?: RuleItem[];
+  validateTrigger?: string;
 }
 
 const FormItem: FC<FormItemProps> = (props) => {
@@ -18,15 +21,17 @@ const FormItem: FC<FormItemProps> = (props) => {
     name,
     valuePropName,
     trigger,
-    getValueFromEvent
-  } = props as SomeRequired<FormItemProps, 'getValueFromEvent' | 'trigger' | 'valuePropName'>
-  const { dispatch, fields, initialValues } = useContext(FormContext)
+    getValueFromEvent,
+    rules,
+    validateTrigger
+  } = props as SomeRequired<FormItemProps, 'getValueFromEvent' | 'trigger' | 'valuePropName' | 'validateTrigger'>
+  const { dispatch, fields, initialValues, validateField } = useContext(FormContext)
   const rowClass = classNames('viking-row', {
     'viking-row-no-label': !label
   })
   useEffect(() => {
     const value = (initialValues && initialValues[name]) || ''
-    dispatch({ type: 'addField', name, value: { label, name, value }})
+    dispatch({ type: 'addField', name, value: { label, name, value, rules, isValid: true }})
   }, [])
   // 获取store 对应的 value
   const fieldState = fields[name]
@@ -36,10 +41,16 @@ const FormItem: FC<FormItemProps> = (props) => {
     console.log('new value', value)
     dispatch({ type: 'updateValue', name, value })
   }
+  const onValueValidate = async () => {
+    await validateField(name)
+  }
   // 1 手动的创建一个属性列表，需要有 value 以及 onChange 属性
   const controlProps: Record<string, any> = {}
   controlProps[valuePropName] = value
   controlProps[trigger] = onValueUpdate
+  if (rules) {
+    controlProps[validateTrigger] = onValueValidate
+  }
   // 2 获取 children 数组的第一个元素
   const childList = React.Children.toArray(children)
   // 没有子组件
@@ -79,6 +90,7 @@ const FormItem: FC<FormItemProps> = (props) => {
 FormItem.defaultProps = {
   valuePropName: 'value',
   trigger: 'onChange',
+  validateTrigger: 'onBlur',
   getValueFromEvent: (e) => e.target.value
 }
 export default FormItem

@@ -23,10 +23,10 @@ export default meta
 export const BasicForm = () => {
   return (
     <Form initialValues={{ username: 'viking', agreement: true }}>
-      <Item label='用户名' name='username'>
+      <Item label='用户名' name='username' rules={[{ type: 'email', required: true }]}>
         <Input/>
       </Item>
-      <Item label='密码' name='password'>
+      <Item label='密码' name='password' rules={[{type: 'string', required: true, min: 3, max: 8 }]}>
         <Input type='password'/>
       </Item>
       <div className='agreement-section' style={{ 'display': 'flex', 'justifyContent': 'center'}}>
