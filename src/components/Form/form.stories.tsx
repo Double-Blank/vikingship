@@ -22,7 +22,7 @@ export default meta
 
 export const BasicForm = () => {
   return (
-    <Form>
+    <Form initialValues={{ username: 'viking', agreement: true }}>
       <Item label='用户名' name='username'>
         <Input/>
       </Item>
