@@ -36,6 +36,15 @@ const FormItem: FC<FormItemProps> = (props) => {
   // 获取store 对应的 value
   const fieldState = fields[name]
   const value = fieldState && fieldState.value
+  const errors = fieldState && fieldState.errors
+  const isRequired = rules?.some(rule => rule.required)
+  const hasError = errors && errors.length > 0
+  const labelClass = classNames({
+    'viking-form-item-required': isRequired
+  })
+  const itemClass = classNames('viking-form-item-control', {
+    'viking-form-item-has-error': hasError
+  })
   const onValueUpdate = (e:any) => {
     const value = getValueFromEvent(e)
     console.log('new value', value)
@@ -75,13 +84,20 @@ const FormItem: FC<FormItemProps> = (props) => {
     <div className={rowClass}>
       { label &&
         <div className='viking-form-item-label'>
-          <label title={label}>
+          <label title={label} className={labelClass}>
             {label}
           </label>
         </div>
       }
       <div className='viking-form-item'>
-        {returnChildNode}
+        <div className={itemClass}>
+          {returnChildNode}
+        </div>
+        { hasError && 
+          <div className='viking-form-item-explain'>
+            <span>{errors[0].message}</span>
+          </div>
+        }
       </div>
     </div>
   )
