@@ -33,9 +33,9 @@ const confirmRules: CustomRule[] = [
     }
   })
 ]
-export const BasicForm = () => {
+export const BasicForm = (args) => {
   return (
-    <Form initialValues={{ username: 'viking', agreement: true }}>
+    <Form initialValues={{ username: 'viking', agreement: false }} {...args}>
       <Item label='用户名' name='username' rules={[{ type: 'email', required: true }]}>
         <Input/>
       </Item>
@@ -46,7 +46,12 @@ export const BasicForm = () => {
         <Input type='password'/>
       </Item>
       <div className='agreement-section' style={{ 'display': 'flex', 'justifyContent': 'center'}}>
-        <Item name='agreement' valuePropName='checked' getValueFromEvent={(e) => e.target.checked}>
+        <Item 
+          name='agreement' 
+          valuePropName='checked' 
+          getValueFromEvent={(e) => e.target.checked}
+          rules={[{ type: 'enum', enum: [true], message: '请同意协议'}]}
+        >
           <input type="checkbox"/>
         </Item>
         <span className="agree-text">注册即代表你同意<a href='#'>用户协议</a></span>
