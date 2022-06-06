@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { ComponentMeta } from '@storybook/react'
-import Form from './form'
+import Form, { IFormRef } from './form'
 import Item from './formItem'
 import Input from '../Input'
 import Button from '../Button'
@@ -39,8 +39,15 @@ const confirmRules: CustomRule[] = [
   })
 ]
 export const BasicForm = (args) => {
+  const ref = useRef<IFormRef>()
+  const resetAll = () => {
+    console.log('form ref', ref.current)
+    console.log('get value', ref.current?.getFieldValue('username'))
+    ref.current?.resetFields()
+    
+  }
   return (
-    <Form initialValues={{ username: 'viking', agreement: false }} {...args}>
+    <Form initialValues={{ username: 'viking', agreement: false }} {...args} ref={ref}>
       { ({ isValid, isSubmitting }) => (
       <>
       <Item label='用户名' name='username' rules={[{ type: 'email', required: true }]}>
@@ -65,6 +72,7 @@ export const BasicForm = (args) => {
       </div>
       <div className='viking-form-submit-area'>
         <Button type="submit" btnType='primary'>登陆 {isSubmitting ? '验证中' : '验证完毕'} {isValid ? '通过😄' : '没通过😢'} </Button>
+        <Button type="button" onClick={resetAll}>重置</Button>
       </div>
       </>
     )}

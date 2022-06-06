@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, createContext } from 'react'
+import React, { FC, ReactNode, createContext, forwardRef, useImperativeHandle } from 'react'
 import { ValidateError } from 'async-validator'
 import useStore, { FormState }from './useStore';
 export type RenderProps = (form: FormState) => ReactNode
@@ -12,10 +12,17 @@ export interface FormProps {
 export type IFormContext = 
   Pick<ReturnType<typeof useStore>, 'dispatch' | 'fields' | 'validateField'>
   & Pick<FormProps, 'initialValues'>
+export type IFormRef = Omit<ReturnType<typeof useStore>, 'fields' | 'dispatch' | 'form'>
 export const FormContext = createContext<IFormContext>({} as IFormContext)
-export const Form: FC<FormProps> = (props) => {
+export const Form = forwardRef<IFormRef, FormProps>((props, ref) => {
   const { name, children, initialValues, onFinish, onFinishFailed } = props
-  const { form, fields, dispatch, validateField, validateAllFields } = useStore(initialValues)
+  const { form, fields, dispatch, ...restProps } = useStore(initialValues)
+  const { validateField, validateAllFields } = restProps
+  useImperativeHandle(ref, () => {
+    return {
+      ...restProps
+    }
+  })
   const passedContext: IFormContext = {
     dispatch,
     fields,
@@ -52,7 +59,7 @@ export const Form: FC<FormProps> = (props) => {
     </>
 
   )
-}
+})
 Form.defaultProps = {
   name: 'viking_form'
 }
