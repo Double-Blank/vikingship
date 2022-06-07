@@ -51,7 +51,8 @@
     "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build",
     "@types/react": "^18.0.8",
     "storybook": "BROWSER=none start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build-es": "rollup --config rollup.config.js"
   },
   "husky": {
     "hooks": {
@@ -76,6 +77,9 @@
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@mdx-js/react": "^1.6.22",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",
@@ -106,6 +110,9 @@
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "rimraf": "^3.0.1",
+    "rollup": "^2.75.5",
+    "rollup-plugin-sass": "^1.2.12",
+    "rollup-plugin-typescript2": "^0.31.2",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "typescript": "^4.6.4",
