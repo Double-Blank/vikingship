@@ -31,11 +31,7 @@ const testPropsWithCustomRender: AutoCompleteProps = {
   placeholder: 'auto-complete-2',
   renderOption
 }
-const testPropsWithPromise: AutoCompleteProps = {
-  ...testProps,
-  fetchSuggestions: (query) => { return Promise.resolve(testArray.filter(item => item.value.includes(query))) },
-  placeholder: 'auto-complete-3',
-}
+
 let wrapper: RenderResult, inputNode: HTMLInputElement
 
 describe('test AutoComplete component', () => {
@@ -99,11 +95,16 @@ describe('test AutoComplete component', () => {
     })
   })
   it('async fetchSuggestions should works fine', async () => {
+    const testPropsWithPromise: AutoCompleteProps = {
+      ...testProps,
+      fetchSuggestions: jest.fn((query) => { return Promise.resolve(testArray.filter(item => item.value.includes(query))) }),
+      placeholder: 'auto-complete-3',
+    }
     const wrapper = render(<AutoComplete {...testPropsWithPromise}/>)
     const inputNode = wrapper.getByPlaceholderText('auto-complete-3') as HTMLInputElement
     fireEvent.change(inputNode, {target: { value: 'a'}})
     await waitFor(() => {
-      // expect(testPropsWithPromise.fetchSuggestions).toHaveBeenCalled()
+      expect(testPropsWithPromise.fetchSuggestions).toHaveBeenCalled()
       expect(wrapper.queryByText('ab')).toBeInTheDocument()
     })
   })

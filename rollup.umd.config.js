@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import sass from 'rollup-plugin-sass'
 import { terser } from "rollup-plugin-terser"
+import replace from '@rollup/plugin-replace'
 
 const overrides = {
   compilerOptions: { declaration: true },
@@ -28,6 +29,9 @@ const config = {
     }
   ],
   plugins: [
+    replace({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
     nodeResolve(),
     commonjs(),
     json(),
