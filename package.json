@@ -1,6 +1,6 @@
 {
   "name": "vikingship",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "React components library",
   "author": "Viking Zhang",
   "private": false,
@@ -63,6 +63,11 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es)"
+    ]
   },
   "browserslist": {
     "production": [
