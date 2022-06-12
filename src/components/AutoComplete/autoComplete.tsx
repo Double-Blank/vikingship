@@ -9,16 +9,34 @@ interface DataSourceObject {
   value: string;
 }
 export type DataSourceType<T = {}> = T & DataSourceObject
-export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
+export interface AutoCompleteProps extends Omit<InputProps, 'onSelect' | 'onChange'> {
+  /**
+   * 返回输入建议的方法，可以拿到当前的输入，然后返回同步的数组或者是异步的 Promise
+   * type DataSourceType<T = {}> = T & DataSourceObject
+   */
   fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>;
+  /** 点击选中建议项时触发的回调*/
   onSelect?: (item: DataSourceType) => void;
+  /** 文本框发生改变的时候触发的事件*/
+  onChange?: (value: string) => void;
+  /**支持自定义渲染下拉项，返回 ReactElement */
   renderOption?: (item: DataSourceType) => ReactElement;
 }
 
+/**
+ * 输入框自动完成功能。当输入值需要自动完成时使用，支持同步和异步两种方式
+ * 支持 Input 组件的所有属性 支持键盘事件选择
+ * ### 引用方法
+ * 
+ * ~~~js
+ * import { AutoComplete } from 'vikingship'
+ * ~~~
+ */
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const {
     fetchSuggestions,
     onSelect,
+    onChange,
     value,
     renderOption,
     ...restProps
@@ -87,7 +105,11 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
+    console.log('triggered the value', value)
     setInputValue(value)
+    if (onChange) {
+      onChange(value)
+    }
     triggerSearch.current = true
   }
   const handleSelect = (item: DataSourceType) => {
@@ -132,10 +154,10 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   return (
     <div className="viking-auto-complete" ref={componentRef}>
       <Input
+        {...restProps}
         value={inputValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        {...restProps}
       />
       {generateDropdown()}
     </div>

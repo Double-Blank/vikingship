@@ -1,22 +1,71 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
-import Menu from './menu'
-import MenuItem from './menuItem'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
+import Menu from './index'
 
-export const defaultMenu = () => (
-  <Menu defaultIndex='0' onSelect={(index) => {action(`clicked ${index} item`)}} >
-    <MenuItem>
+export default {
+  title: '第六章：Menu',
+  id: 'Menu',
+  component: Menu,
+  subcomponents: { 'SubMenu': Menu.SubMenu, 'Item': Menu.Item }
+} as ComponentMeta<typeof Menu>
+
+export const ADefaultMenu: ComponentStory<typeof Menu> = (args) => (
+  <Menu defaultIndex='0' {...args} >
+    <Menu.Item>
       cool link
-    </MenuItem>
-    <MenuItem disabled>
-      disabled
-    </MenuItem> 
-    <MenuItem>
+    </Menu.Item>
+    <Menu.Item>
       cool link 2
-    </MenuItem> 
+    </Menu.Item>
+    <Menu.Item disabled>
+      disabled
+    </Menu.Item> 
+    <Menu.SubMenu title="下拉选项">
+      <Menu.Item>
+        下拉选项一
+      </Menu.Item>
+      <Menu.Item>
+        下拉选项二
+      </Menu.Item>    
+    </Menu.SubMenu>
   </Menu>
 )
-
-storiesOf('Menu Component', module)
-.add('Menu', defaultMenu )
+ADefaultMenu.storyName = '默认Menu'
+export const BClickMenu: ComponentStory<typeof Menu> = (args) => (
+  <Menu {...args} defaultIndex='0' mode="vertical">
+    <Menu.Item>
+      cool link
+    </Menu.Item>
+    <Menu.Item>
+      cool link 2
+    </Menu.Item>
+    <Menu.SubMenu title="点击下拉选项">
+      <Menu.Item>
+        下拉选项一
+      </Menu.Item>
+      <Menu.Item>
+        下拉选项二
+      </Menu.Item>    
+    </Menu.SubMenu>
+  </Menu>
+)
+BClickMenu.storyName = '纵向的 Menu'
+export const COpenedMenu:ComponentStory<typeof Menu> = (args) => (
+  <Menu {...args} defaultIndex='0' mode="vertical" defaultOpenSubMenus={['2']}>
+    <Menu.Item>
+      cool link
+    </Menu.Item>
+    <Menu.Item>
+      cool link 2
+    </Menu.Item>
+    <Menu.SubMenu title="默认展开下拉选项">
+      <Menu.Item>
+        下拉选项一
+      </Menu.Item>
+      <Menu.Item>
+        下拉选项二
+      </Menu.Item>    
+    </Menu.SubMenu>
+  </Menu>
+)
+COpenedMenu.storyName = '默认展开的纵向 Menu'

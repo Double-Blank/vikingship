@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, InputHTMLAttributes, ChangeEvent } from 'react'
+import React, { ReactElement, InputHTMLAttributes, ChangeEvent, forwardRef } from 'react'
 import classNames from 'classnames'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Icon from '../Icon/icon'
@@ -25,9 +25,10 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
  * // 这样引用
  * import { Input } from 'vikingship'
  * ~~~
+ * 
  * 支持 HTMLInput 的所有基本属性
  */
-export const Input: FC<InputProps> = (props) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     disabled,
     size,
@@ -58,7 +59,8 @@ export const Input: FC<InputProps> = (props) => {
     <div className={cnames} style={style}>
       {prepend && <div className="viking-input-group-prepend">{prepend}</div>}
       {icon && <div className="icon-wrapper"><Icon icon={icon} title={`title-${icon}`}/></div>}
-      <input 
+      <input
+        ref={ref}
         className="viking-input-inner"
         disabled={disabled}
         {...restProps}
@@ -66,6 +68,6 @@ export const Input: FC<InputProps> = (props) => {
       {append && <div className="viking-input-group-append">{append}</div>}
     </div>
   )
-}
+})
 
 export default Input;

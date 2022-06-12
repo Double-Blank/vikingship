@@ -13,9 +13,14 @@
 
 @import "../components/Button/style";
 
-// menu
+//alert
+@import "../components/Alert/style";
 
+// menu
 @import "../components/Menu/style";
+
+//navs
+@import "../components/Tabs/style";
 
 // icon
 @import "../components/Icon/style";
@@ -26,8 +31,14 @@
 //auto-complete
 @import "../components/AutoComplete/style";
 
+//select
+@import "../components/Select/style";
+
 //upload
 @import "../components/Upload/style";
 
 //progress
 @import "../components/Progress/style";
+
+// form
+@import "../components/Form/style";
