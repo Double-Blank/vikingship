@@ -3,8 +3,8 @@
 
 [![Build Status](https://travis-ci.com/vikingmute/vikingship.svg?token=mHoDqxyxXWX5BSpu8L9y&branch=master)](https://travis-ci.com/vikingmute/vikingship)
 
-DoubleClick 是我自己为深入学习React而实现的组件库，使用 React Hooks 和 typescript
-意在让大家从零到一，由浅入深的提高自己的 React 和 typescript 水平、
+vikingship 是为深入学习React而实现的组件库，使用 React Hooks 和 typescript
+从零到一，由浅入深的提高自己的 React 和 typescript 编码水平
 
 
 ### 安装最后已经发布的组件库来试试
